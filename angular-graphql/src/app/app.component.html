@@ -1,0 +1,73 @@
+<div style="padding: 20px">
+  <h1>GraphQL Todo</h1>
+
+  @if (newTodoNotification()) {
+  <div>
+    <p class="font-bold">Todo Updates:</p>
+    <p>{{ newTodoNotification() }}</p>
+  </div>
+  }
+
+  <input
+    matInput
+    type="text"
+    [(ngModel)]="newTodoTitle"
+    placeholder="New todo title"
+    style="margin-right: 10px; padding: 8px"
+  />
+  <button mat-flat-button color="warn" (click)="addTodo()" style="padding: 8px 15px">Add Todo</button>
+  <br /><br />
+
+  <input
+    matInput
+    type="text"
+    [(ngModel)]="searchQuery"
+    (keyup)="onSearchKeyup()"
+    placeholder="Search todos by title"
+    style="padding: 8px; width: 300px"
+  />
+  <button mat-flat-button color="primary" (click)="clearSearch()" style="margin-left: 10px; padding: 8px 15px">
+    Clear Search
+  </button>
+  <br /><br />
+
+  @if(loading()){
+  <div>Loading todos...</div>
+  } 
+  
+  @if(error()){
+  <div>Error: {{ error()?.message }}</div>
+  } 
+  
+  @if(todos().length > 0) {
+  <ul>
+    <li
+      *ngFor="let todo of todos()"
+      style="margin-bottom: 10px; display: flex; align-items: center"
+    >
+      <input
+        type="checkbox"
+        [checked]="todo.completed"
+        (change)="updateTodo(todo.id, $event)"
+        style="margin-right: 10px"
+      />
+      <span
+        [style.textDecoration]="todo.completed ? 'line-through' : 'none'"
+        style="flex-grow: 1"
+      >
+        {{ todo.title }} (ID: {{ todo.id.substring(0, 4) }}...)
+      </span>
+      <button mat-flat-button
+        (click)="deleteTodo(todo.id)"
+        style="margin-left: 15px; padding: 5px 10px"
+      >
+        Delete
+      </button>
+    </li>
+  </ul>
+  } 
+  
+  @if(todos().length === 0 && !loading()) {
+  <div>No todos found.</div>
+  }
+</div>
