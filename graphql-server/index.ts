@@ -3,7 +3,6 @@ import { ApolloServer } from '@apollo/server';
 import { createServer } from 'http';
 import { expressMiddleware } from '@as-integrations/express5';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
-// import { startStandaloneServer } from '@apollo/server/standalone';
 import { v4 as uuidv4 } from 'uuid';
 import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/use/ws';
@@ -12,7 +11,6 @@ import bodyParser from 'body-parser';
 import { PubSub } from 'graphql-subscriptions';
 import cors from 'cors';
 
-// const cors = require('cors');
 const port = 4000;
 const TODO_ADDED_EVENT_NAME = 'TODO_ADDED';
 
@@ -189,19 +187,3 @@ async function startServer() {
 }
 
 startServer();
-
-// async function startApolloServer() {
-//   const server = new ApolloServer<any>({
-//     typeDefs,
-//     resolvers
-//   });
-
-//   const { url } = await startStandaloneServer(server, {
-//     listen: { port: 4000 }
-//   });
-
-//   console.log(`🚀 Server ready at ${url}`);
-//   console.log(`Access GraphiQL at ${url}`);
-// }
-
-// startApolloServer();

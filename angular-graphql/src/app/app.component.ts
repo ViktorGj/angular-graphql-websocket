@@ -122,8 +122,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.todosGraphqlService.addTodo(title.trim()).subscribe({
       next: (newTodo) => {
-        this.newTodoTitle.set('');
-        // this.todos.update((currentTodos) => [newTodo, ...currentTodos]);
+        this.newTodoTitle.set('');        
 
         this.todos.update((currentTodos) => {
           if (!currentTodos.find((t) => t.id === newTodo.id)) {
